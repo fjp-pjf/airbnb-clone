@@ -6,14 +6,37 @@ import { ArrowDown } from "feather-icons-react";
 const Clock = () => {
   const [hours, setHours] = useState("00");
   const [minutes, setMinutes] = useState("00");
+
+  // following 24 hours format
+  const increaseHours = () => {
+    const numHours = Number(hours);
+    if (numHours >= 24) {
+      setHours("00");
+      return;
+    }
+
+    const increasedHours = (numHours + 1).toString().padStart(2,"0");
+    setHours(increasedHours);
+  };
+
+  const decreaseHours = () => {};
+  const increaseMinutes = () => {};
+  const decreaseMinutes = () => {};
+
   return (
     <div className="h-screen w-screen flex justify-center align-center">
       <div className="flex flex-col justify-center align-center">
         <div className="flex gap-2">
-          <button className="flex justify-center w-100 cursor-pointer border p-2">
+          <button
+            onClick={increaseHours}
+            className="flex justify-center w-100 cursor-pointer border p-2"
+          >
             <ArrowUp />
           </button>
-          <button className="flex justify-center w-100 cursor-pointer border p-2">
+          <button
+            onClick={increaseMinutes}
+            className="flex justify-center w-100 cursor-pointer border p-2"
+          >
             <ArrowUp />
           </button>
         </div>
