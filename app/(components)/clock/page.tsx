@@ -7,45 +7,26 @@ const Clock = () => {
   const [hours, setHours] = useState("00");
   const [minutes, setMinutes] = useState("00");
 
-  // following 24 hours format
-  const increaseHours = () => {
-    const numHours = Number(hours);
-    if (numHours >= 24) {
-      setHours("00");
-      return;
-    }
+  const manageClock = (
+    timeType: "hours" | "minutes",
+    operationType: "increase" | "decrease"
+  ) => {
+    const numTime = timeType === "hours" ? Number(hours) : Number(minutes);
+    const max = timeType === "hours" ? 23 : 59;
 
-    const increasedHours = (numHours + 1).toString().padStart(2,"0");
-    setHours(increasedHours);
-  };
+    const next =
+      operationType === "increase"
+        ? numTime === max
+          ? "0"
+          : numTime + 1
+        : numTime === 0
+        ? max
+        : numTime - 1;
 
-  const decreaseHours = () => {
-    const numHours = Number(hours);
-    if(numHours === 0) return;
+    const value = next.toString().padStart(2, "0");
 
-    const decreasedHours = (numHours - 1).toString().padStart(2, "0");
-    setHours(decreasedHours)
-  };
-
-  const increaseMinutes = () => {
-    const numMinutes = Number(minutes);
-    if (numMinutes >= 60) {
-      setMinutes("00");
-      return;
-    }
-
-    const increasedMinutes = (numMinutes + 1).toString().padStart(2,"0");
-    setMinutes(increasedMinutes);
-  };
-
-  const decreaseMinutes = () => {
-    const numMinutes = Number(minutes);
-    if (numMinutes === 0) {
-      return;
-    }
-
-    const decreaseMinutes = (numMinutes - 1).toString().padStart(2,"0");
-    setMinutes(decreaseMinutes);
+    if (timeType === "hours") setHours(value);
+    else setMinutes(value);
   };
 
   return (
@@ -53,13 +34,13 @@ const Clock = () => {
       <div className="flex flex-col justify-center align-center">
         <div className="flex gap-2">
           <button
-            onClick={increaseHours}
+            onClick={() => manageClock("hours", "increase")}
             className="flex justify-center w-100 cursor-pointer border p-2"
           >
             <ArrowUp />
           </button>
           <button
-            onClick={increaseMinutes}
+            onClick={() => manageClock("minutes", "increase")}
             className="flex justify-center w-100 cursor-pointer border p-2"
           >
             <ArrowUp />
@@ -69,10 +50,16 @@ const Clock = () => {
           {hours} : {minutes}
         </button>
         <div className="flex gap-2">
-          <button onClick={decreaseHours} className="flex justify-center w-100 cursor-pointer border p-2">
+          <button
+            onClick={() => manageClock("hours", "decrease")}
+            className="flex justify-center w-100 cursor-pointer border p-2"
+          >
             <ArrowDown />
           </button>
-          <button onClick={decreaseMinutes} className="flex justify-center w-100 cursor-pointer border p-2">
+          <button
+            onClick={() => manageClock("minutes", "decrease")}
+            className="flex justify-center w-100 cursor-pointer border p-2"
+          >
             <ArrowDown />
           </button>
         </div>
