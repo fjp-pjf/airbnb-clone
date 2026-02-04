@@ -28,7 +28,7 @@ const Clock = () => {
   };
 
   const increaseMinutes = () => {
-    const numMinutes = Number(hours);
+    const numMinutes = Number(minutes);
     if (numMinutes >= 60) {
       setMinutes("00");
       return;
@@ -39,14 +39,13 @@ const Clock = () => {
   };
 
   const decreaseMinutes = () => {
-    const numMinutes = Number(hours);
-    if (numMinutes >= 60) {
-      setHours("00");
+    const numMinutes = Number(minutes);
+    if (numMinutes === 0) {
       return;
     }
 
-    const increasedMinutes = (numMinutes - 1).toString().padStart(2,"0");
-    setHours(increasedMinutes);
+    const decreaseMinutes = (numMinutes - 1).toString().padStart(2,"0");
+    setMinutes(decreaseMinutes);
   };
 
   return (
