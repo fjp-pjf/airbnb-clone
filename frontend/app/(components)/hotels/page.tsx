@@ -5,7 +5,7 @@ import { useEffect } from "react";
 const HotelsLandingPage = () => {
   const getHotelList = async () => {
     try {
-      const data = await axios.get("/hotels");
+      const data = await axios.get("http://localhost:8080/hotels");
       console.log("data: ", data);
     } catch (error) {
       console.log("error: ", error);
