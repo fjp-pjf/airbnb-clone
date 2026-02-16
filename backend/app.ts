@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import pool from "./db";
 
 import hotelRoutes from "./routes/hotelRoutes";
 
